@@ -4,16 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found - {{ site_name }}</title>
+  <title>{% block title %}{{ site_name }}{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    html {
+      scroll-behavior: smooth; /* smooth scroll for anchor links */
+    }
+  </style>
 </head>
 <body>
+  <!-- Header / Navigation -->
   <header>
     <div class="container nav">
       <h1 class="logo">{{ site_name }}</h1>
       <nav>
         <ul class="nav-links">
-          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -21,15 +27,12 @@
     </div>
   </header>
 
+  <!-- Main content -->
   <main class="container">
-    <section class="hero" style="padding:4rem 1rem; text-align:center;">
-      <h1 style="font-size:4rem; color:var(--brand);">404</h1>
-      <h2 style="margin-top:1rem;">Oops! Page Not Found</h2>
-      <p>The page you are looking for doesn’t exist or has been moved.</p>
-      <a href="{% url 'home' %}" class="btn" style="margin-top:2rem;">Go Back Home</a>
-    </section>
+    {% block content %}{% endblock %}
   </main>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
   </footer>

@@ -1,27 +1,27 @@
 # from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render
 from .models import Member
+import datetime
 
-def hello(request):
-    data = Member.objects.all().values()
-    page = loader.get_template('test.html')
-    vars = {
-        'mymembers': data,
-    }
-    return HttpResponse(page.render(vars, request))
-
-def details(request, id):
-  data = Member.objects.get(id=id)
-  page = loader.get_template('details.html')
-  vars = {
-    'mymember': data,
-  }
-  return HttpResponse(page.render(vars, request))
-
-def testing(request):
-  template = loader.get_template('template.html')
+def home(request):
   context = {
-    'fruits': ['Apple', 'Banana', 'Cherry'],   
-  }
-  return HttpResponse(template.render(context, request))
+        "site_name": "My Personal Website",
+        "current_year": datetime.date.today().year,
+        "user": request.user,
+        "latest_video_id": "mWJuPvOIzYA",  # Replace with dynamic YT video ID
+    }
+  return render(request, "home.html", context)
+
+def about(request):
+  return render(request, "about.html")
+
+def contact(request):
+  return render(request, "contact.html")
+
+def page404(request):
+  context = {
+        "current_year": datetime.date.today().year,
+    }
+  return render(request, "404.html", context)
