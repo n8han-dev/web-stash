@@ -1,13 +1,25 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ site_name }}{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
-
-<!-- Home Section -->
 <section id="home" class="hero">
-  <h2>Welcome, {{ user.first_name|default:"Guest" }}!</h2>
-  <p>This is my personal website.</p>
+  <h2>Welcome!</h2>
+  <div class="hero-text">
+    {{ welcome.content|safe }}
+  </div>
+</section>
+
+  <!-- Latest article preview -->
+  {% if latest_article %}
+    <section class="card" id="latest-article">
+      <h2>Latest Article</h2>
+      <h3>{{ latest_article.title }}</h3>
+      <p class="meta">Published: {{ latest_article.published|date:"F j, Y" }}</p>
+      <p>
+        {{ latest_article.body|truncatewords:40 }}
+      </p>
+      <a href="{% url 'article_detail' latest_article.slug %}" class="btn">Read More</a>
+    </section>
+  {% endif %}
 
   <div class="hero-buttons">
     <a class="btn" href="#about">Learn More</a>
@@ -19,10 +31,6 @@
   </div>
 </section>
 
-<!-- About Section -->
 {% include "about.html" %}
-
-<!-- Contact Section -->
 {% include "contact.html" %}
-
 {% endblock %}

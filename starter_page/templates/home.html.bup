@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ site_name }}{% endblock %}
+
+{% block content %}
+
+<!-- Home Section -->
+<section id="home" class="hero">
+  <h2>Welcome, {{ user.first_name|default:"Guest" }}!</h2>
+  <p>This is my personal website.</p>
+
+  <div class="hero-buttons">
+    <a class="btn" href="#about">Learn More</a>
+    <a class="btn secondary" href="#contact">Contact Me</a>
+  </div>
+
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/{{ latest_video_id }}" frameborder="0" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- About Section -->
+{% include "about.html" %}
+
+<!-- Contact Section -->
+{% include "contact.html" %}
+
+{% endblock %}

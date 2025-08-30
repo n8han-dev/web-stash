@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="article-layout">
+
+  <!-- Sidebar with past articles -->
+  <aside class="sidebar">
+    <h3>Past Articles</h3>
+    <ul>
+      {% for a in past_articles %}
+        <li>
+          <a href="{% url 'article_detail' a.slug %}" class="{% if a.id == article.id %}active{% endif %}">
+            {{ a.title }}
+          </a>
+        </li>
+      {% empty %}
+        <li>No articles available.</li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <!-- Main Article -->
+  <article class="main-article">
+    <h1>{{ article.title }}</h1>
+    <p class="meta">Published: {{ article.published|date:"F j, Y" }}</p>
+    <div class="article-body">
+      {{ article.body|safe }}
+    </div>
+  </article>
+
+  <!-- Empty right column -->
+  <aside class="right-empty"></aside>
+
+</div>
+{% endblock %}
