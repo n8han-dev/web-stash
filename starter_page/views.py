@@ -36,4 +36,9 @@ def page404(request):
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug)
     past_articles = Article.objects.exclude(id=article.id).order_by('-published')[:10]
-    return render(request, "article.html", {"article": article, "past_articles": past_articles})
+    context = {
+      "article": article,
+      "past_articles": past_articles,
+      "current_year": datetime.date.today().year,
+    }
+    return render(request, "article.html", context)
